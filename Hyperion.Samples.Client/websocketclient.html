@@ -1,0 +1,43 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <title>WebSockets Sample</title>
+</head>
+<body>
+    <h1>
+        WebSocket Client</h1>
+    <form>
+    <label for="send_input">
+        Text to send</label><br />
+    <input type="text" name="send_input" id="send_input" placeholder="message" />
+    <input type="submit" name="send_submit" id="send_submit" value="Send" onclick="send_data(); return false" /><br />
+    <label for="received">
+        Received text</label><br />
+    <textarea name="received" id="received" rows="6" cols="60"></textarea>
+    </form>
+    <script type="text/javascript">
+        if ("WebSocket" in window) {
+            var ws = new WebSocket("ws://localhost:8000/sample");
+            ws.onmessage = function (evt) {
+                var data = evt.data;
+                var target = document.getElementById("received");
+                target.value = target.value + data;
+            };
+            ws.onopen = function () {
+                debug.innerHTML += '.. connection open<br/>';
+            };
+            ws.onclose = function () {
+                // websocket is closed. 
+            };
+            window.send_data = function () {
+                var msg = document.getElementById("send_input").value;
+                var json = JSON.stringify({ From: "Client", Text: msg });
+                ws.send(json);
+            };
+        } else {
+            // the browser doesn't support WebSocket.
+            alert("The current browser doesn't support WebScokets");
+        }
+    </script>
+</body>
+</html>
