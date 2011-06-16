@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Net.Sockets;
-using System.IO;
 
 namespace Hyperion.Core.WebSockets
 {
@@ -91,7 +89,7 @@ namespace Hyperion.Core.WebSockets
             webSocket.BeginSend(handshakeBuffer, 0, handshakeBuffer.Length, OnHandshakeReturned, state);
         }
 
-        private void OnHandshakeReturned(IAsyncResult ar)
+        protected virtual void OnHandshakeReturned(IAsyncResult ar)
         {
             var state = (ReturnHandshakeState)ar.AsyncState;
             state.WebSocket.EndSend(ar);
