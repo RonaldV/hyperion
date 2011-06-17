@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Net;
-using System.Net.Sockets;
-using Hyperion.Core.WebSockets;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using Hyperion.Core.WebSockets;
 
 namespace Hyperion.Core
 {
@@ -18,14 +16,14 @@ namespace Hyperion.Core
         private string fromFieldName;
 
         public WebSocketDispatcher(Uri locationUri,
-            string origin,
+            ServerEtiquette etiquette,
             IWebSocketHandlerFactory handlerFactory)
-            : this(locationUri, origin, handlerFactory, null)
+            : this(locationUri, etiquette, handlerFactory, null)
         {
         }
 
         public WebSocketDispatcher(Uri locationUri,
-            string origin,
+            ServerEtiquette etiquette,
             IWebSocketHandlerFactory handlerFactory, 
             X509Certificate serverCertificate)
         {
@@ -41,7 +39,6 @@ namespace Hyperion.Core
             this.handlerFactory = handlerFactory;
             clientsByMetadata = new Dictionary<string, List<IWebSocket>>();
 
-            var etiquette = new ServerEtiquette(locationUri, origin);
             listener = new WebSocketListener(locationUri, etiquette, serverCertificate);
             listener.Start(OnHandShaken);
         }

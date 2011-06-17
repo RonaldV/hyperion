@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Hyperion.Core.WebSockets;
 using Hyperion.Samples.Server;
 using Hyperion.Core;
 using Hyperion.Samples.Common;
@@ -19,7 +20,8 @@ namespace Hyperion.Samples.MessagingServer
             };
             var handerFactory = new WebSocketHandlerFactory(handlersByResourceName);
             //var dispatcher = new WebSocketDispatcher(uri, "originTest", handerFactory);
-            var dispatcher = new WebSocketDispatcher(uri, "null", handerFactory)
+            var etiquette = new ServerEtiquette(uri, "null");
+            var dispatcher = new WebSocketDispatcher(uri, etiquette, handerFactory)
             {
                 FromFieldName = "From"
             };
