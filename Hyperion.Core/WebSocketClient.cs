@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Net;
-using System.Net.Sockets;
-using Hyperion.Core.WebSockets;
-using System.Security.Authentication;
 using System.Net.Security;
+using System.Security.Authentication;
+using Hyperion.Core.WebSockets;
 
 namespace Hyperion.Core
 {

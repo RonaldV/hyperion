@@ -1,15 +1,14 @@
-﻿using System.Net;
-using System.Net.Sockets;
-using System;
-using System.Linq;
-using System.Text;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Net;
 using System.Net.Security;
-using System.Security.Authentication;
+using System.Net.Sockets;
 
 namespace Hyperion.Core.WebSockets
 {
+    // TODO Add full ssl in WebSocket class or do connection callback depending on uri.scheme
     // TODO Add compression
     public class WebSocket : IWebSocket, IDisposable
     {
