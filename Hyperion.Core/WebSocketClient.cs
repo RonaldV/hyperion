@@ -50,6 +50,7 @@ namespace Hyperion.Core
         private readonly WebSocket webSocket;
         private readonly ClientEtiquette etiquette;
         private readonly RemoteCertificateValidationCallback certificateValidationCallback;
+        private readonly IWebSocketHandler handler;
 
         public WebSocketClient(Uri remoteUri, ClientEtiquette etiquette)
         {
@@ -80,7 +81,8 @@ namespace Hyperion.Core
                 throw new ArgumentNullException("handler");
             }
 
-            webSocket.Connected = handler.Connected;
+            this.handler = handler;
+            //webSocket.Connected = handler.Connected;
             webSocket.Received = handler.Received;
             webSocket.Disconnected = sender => handler.Disconnected(uri.ToString());
             webSocket.Error = handler.Error;
@@ -125,7 +127,10 @@ namespace Hyperion.Core
                 else
                 {
                     etiquette.GiveHandshake(webSocket, () =>
-                            webSocket.ReceiveAsync());
+                    {
+                        webSocket.ReceiveAsync();
+                        handler.Connected(uri.ToString());
+                    });
                 }
             });
         }
@@ -138,7 +143,10 @@ namespace Hyperion.Core
                 sslStream.EndAuthenticateAsClient(asyncResult);
 
                 etiquette.GiveHandshake(webSocket, () =>
-                        webSocket.ReceiveAsync());
+                {
+                    webSocket.ReceiveAsync();
+                    handler.Connected(uri.ToString());
+                });
             }
             catch (Exception)
             {

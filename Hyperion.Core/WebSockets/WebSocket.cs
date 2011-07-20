@@ -10,12 +10,12 @@ namespace Hyperion.Core.WebSockets
 {
     // TODO Add full ssl in WebSocket class or do connection callback depending on uri.scheme
     // TODO Add compression
-    public class WebSocket : IWebSocket, IDisposable
+    public class WebSocket : IWebSocket
     {
         private readonly object sync;
-        private Socket socket;
+        private readonly Socket socket;
+        private readonly Queue<string> sendQueue;
         private Stream stream;
-        private Queue<string> sendQueue;
         private bool isSending;
 
         /// <summary>
@@ -76,6 +76,8 @@ namespace Hyperion.Core.WebSockets
         /// <param name="connectedCallback">Callback for when the connection succeeded.</param>
         public void Connect(Uri uri, Action connectedCallback) //X509CertificateCollection clientCertificates
         {
+            // TODO maybe do this in WebSocketClient
+            // Or do SSL here...
             var host = uri.DnsSafeHost;
             var port = uri.WebSocketPort();
 
@@ -90,7 +92,8 @@ namespace Hyperion.Core.WebSockets
                 {
                     stream = new NetworkStream(socket);
                     connectedCallback();
-                    Connected.Raise(uri.ToString());
+                    // Only call connected when the full handshake has finished
+                    //Connected.Raise(uri.ToString());
                 }
             }, null);
         }
