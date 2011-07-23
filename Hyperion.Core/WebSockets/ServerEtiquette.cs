@@ -26,7 +26,7 @@ namespace Hyperion.Core.WebSockets
                 throw new ArgumentNullException("origin");
             }
             this.origin = origin;
-            this.host = locationUri.Authority;
+            this.host = locationUri.WebSocketAuthority();
             this.scheme = locationUri.Scheme;
         }
 
