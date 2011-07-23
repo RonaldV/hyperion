@@ -215,6 +215,11 @@ namespace Hyperion.Core.WebSockets
 
         public void Parse(byte[] bytes, int index, int count)
         {
+            if (count < 8)
+            {
+                return;
+            }
+
             ExtraFields = new Dictionary<string, string>();
 
             using (var memoryStream = new MemoryStream(bytes, index, count - 8))
