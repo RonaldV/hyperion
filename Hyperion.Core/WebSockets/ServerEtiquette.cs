@@ -103,12 +103,12 @@ namespace Hyperion.Core.WebSockets
             public IWebSocket WebSocket;
             public Action<IWebSocket, ClientHandshake> Callback;
         }
+    }
 
-        private class ReturnHandshakeState
-        {
-            public IWebSocket WebSocket;
-            public Action<IWebSocket, ClientHandshake> Callback;
-            public ClientHandshake ClientHandshake;
-        }
+    public class ReturnHandshakeState
+    {
+        public IWebSocket WebSocket;
+        public Action<IWebSocket, ClientHandshake> Callback;
+        public ClientHandshake ClientHandshake;
     }
 }
