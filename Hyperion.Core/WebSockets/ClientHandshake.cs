@@ -13,6 +13,7 @@ namespace Hyperion.Core.WebSockets
     {
         private const string DefaultUpgrade = "WebSocket";
         private const string DefaultConnection = "Upgrade";
+        private const string DefaultOrigin = "null";
         private const string GetText = "GET ";
         private const string SpaceCharacter = " ";
         private const char Seperator = ':';
@@ -151,7 +152,7 @@ namespace Hyperion.Core.WebSockets
                    !string.IsNullOrEmpty(Host) &&
                    Host == host &&
                    !string.IsNullOrEmpty(Origin) &&
-                   Origin == origin &&
+                   (origin == DefaultOrigin || Origin == origin) &&
                    !string.IsNullOrEmpty(Key1) &&
                    !string.IsNullOrEmpty(Key2) &&
                    Key3 != null && 

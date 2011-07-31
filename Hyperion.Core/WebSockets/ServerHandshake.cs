@@ -11,11 +11,14 @@ namespace Hyperion.Core.WebSockets
     // TODO remove parsing and just create validation by bytes input
     public class ServerHandshake
     {
+        private const string DefaultCode = "101";
         private const string DefaultUpgrade = "WebSocket";
         private const string DefaultConnection = "Upgrade";
+        private const string DefaultOrigin = "null";
         private const string HttpText = "HTTP/1.1 ";
         private const string SpaceCharacter = " ";
         private const char Seperator = ':';
+
         private readonly IDictionary<string, Action<ServerHandshake, string>> settersByFieldName = new Dictionary<string, Action<ServerHandshake, string>> 
         {
             {"upgrade", (handshake, x) => handshake.Upgrade = x},
@@ -92,14 +95,14 @@ namespace Hyperion.Core.WebSockets
 
         public bool IsValid(string location, string origin, string subProtocol, byte[] expected)
         {
-            return Code == "101" &&
+            return Code == DefaultCode &&
                    Upgrade == DefaultUpgrade &&
                    string.Compare(Connection, DefaultConnection, true) == 0 &&
                    !ExtraFields.ContainsKey(string.Empty) &&
                    Location != null &&
                    Location == location &&
                    Origin != null &&
-                   Origin == origin &&
+                   (origin == DefaultOrigin || Origin == origin) &&
                    Subprotocol == subProtocol &&
                    Response.EqualsArray(expected);
         }
