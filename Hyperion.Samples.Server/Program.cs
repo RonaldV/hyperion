@@ -25,7 +25,7 @@ namespace Hyperion.Samples.Server
             var handerFactory = new WebSocketHandlerFactory(handlersByResourceName);
             //var dispatcher = new WebSocketDispatcher(uri, "originTest", handerFactory);
             //var dispatcher = new WebSocketDispatcher(uri, "null", handerFactory, serverCertificate)
-            var etiquette = new ServerEtiquette(uri, "null");
+            var etiquette = new ServerEtiquette(uri);
             var dispatcher = new WebSocketDispatcher(uri, etiquette, handerFactory)
             {
                 FromFieldName = "From"

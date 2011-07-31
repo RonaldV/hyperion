@@ -14,7 +14,10 @@ namespace Hyperion.Core.WebSockets
         private readonly HttpCookieCollection cookies;
         private readonly IDictionary<string, string> extraFields;
 
-        public ClientEtiquette(Uri remoteUri, string origin)
+        public ClientEtiquette(Uri remoteUri, 
+            string origin = ClientHandshake.DefaultOrigin,
+            HttpCookieCollection cookies = null, 
+            IDictionary<string, string> extraFields = null)
         {
             if (remoteUri == null)
             {
@@ -26,14 +29,16 @@ namespace Hyperion.Core.WebSockets
             }
             this.uri = remoteUri;
             this.origin = origin;
-        }
-
-        public ClientEtiquette(Uri remoteUri, string origin, HttpCookieCollection cookies, IDictionary<string, string> extraFields)
-            : this(remoteUri, origin)
-        {
             this.cookies = cookies;
             this.extraFields = extraFields;
         }
+
+        //public ClientEtiquette(Uri remoteUri, string origin, HttpCookieCollection cookies, IDictionary<string, string> extraFields)
+        //    : this(remoteUri, origin)
+        //{
+        //    this.cookies = cookies;
+        //    this.extraFields = extraFields;
+        //}
 
         public void GiveHandshake(IWebSocket webSocket, Action handShakenCallback)
         {
@@ -64,7 +69,7 @@ namespace Hyperion.Core.WebSockets
             var state = (GiveHandshakeState)asyncResult.AsyncState;
             state.WebSocket.EndSend(asyncResult);
 
-            var receivingState = new GivingHandshakeState 
+            var receivingState = new GivingHandshakeState
             {
                 WebSocket = state.WebSocket,
                 Callback = state.Callback,

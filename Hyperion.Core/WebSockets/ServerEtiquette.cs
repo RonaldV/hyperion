@@ -15,7 +15,8 @@ namespace Hyperion.Core.WebSockets
         private readonly string host;
         private readonly string scheme;
 
-        public ServerEtiquette(Uri locationUri, string origin)
+        public ServerEtiquette(Uri locationUri, 
+            string origin = ServerHandshake.DefaultOrigin)
         {
             if (locationUri == null)
             {

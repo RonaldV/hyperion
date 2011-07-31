@@ -16,7 +16,7 @@ namespace Hyperion.Samples.Client
 
             var uri = new Uri("ws://localhost:8000/sample");
             var handler = new MessageHandler();
-            var etiquette = new ClientEtiquette(uri, "null", null, new Dictionary<string, string>
+            var etiquette = new ClientEtiquette(uri, extraFields: new Dictionary<string, string>
                                         {
                                             {"From", "Client"}
                                         });

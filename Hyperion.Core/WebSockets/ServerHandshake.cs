@@ -14,7 +14,7 @@ namespace Hyperion.Core.WebSockets
         private const string DefaultCode = "101";
         private const string DefaultUpgrade = "WebSocket";
         private const string DefaultConnection = "Upgrade";
-        private const string DefaultOrigin = "null";
+        public const string DefaultOrigin = "null";
         private const string HttpText = "HTTP/1.1 ";
         private const string SpaceCharacter = " ";
         private const char Seperator = ':';

@@ -13,7 +13,7 @@ namespace Hyperion.Core.WebSockets
     {
         private const string DefaultUpgrade = "WebSocket";
         private const string DefaultConnection = "Upgrade";
-        private const string DefaultOrigin = "null";
+        public const string DefaultOrigin = "null";
         private const string GetText = "GET ";
         private const string SpaceCharacter = " ";
         private const char Seperator = ':';
