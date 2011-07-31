@@ -18,13 +18,14 @@ namespace Hyperion.Core.WebSockets
         public ServerEtiquette(Uri locationUri, 
             string origin = ServerHandshake.DefaultOrigin)
         {
+            origin = origin ?? ServerHandshake.DefaultOrigin;
             if (locationUri == null)
             {
                 throw new ArgumentNullException("locationUri");
             }
-            if (string.IsNullOrEmpty(origin))
+            if (origin.Equals(string.Empty))
             {
-                throw new ArgumentNullException("origin");
+                throw new ArgumentException("origin can not be empty", "origin");
             }
             this.origin = origin;
             this.host = locationUri.WebSocketAuthority();

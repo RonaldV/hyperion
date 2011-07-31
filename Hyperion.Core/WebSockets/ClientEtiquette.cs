@@ -19,13 +19,14 @@ namespace Hyperion.Core.WebSockets
             HttpCookieCollection cookies = null, 
             IDictionary<string, string> extraFields = null)
         {
+            origin = origin ?? ClientHandshake.DefaultOrigin;
             if (remoteUri == null)
             {
                 throw new ArgumentNullException("remoteUri");
             }
-            if (string.IsNullOrEmpty(origin))
+            if (origin.Equals(string.Empty))
             {
-                throw new ArgumentNullException("origin");
+                throw new ArgumentException("origin can not be empty", "origin");
             }
             this.uri = remoteUri;
             this.origin = origin;
