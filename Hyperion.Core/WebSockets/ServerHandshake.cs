@@ -116,7 +116,10 @@ namespace Hyperion.Core.WebSockets
             if (lineInHandshake.StartsWith(HttpText))
             {
                 var indexOfSecondSpace = lineInHandshake.IndexOf(SpaceCharacter, HttpText.Length);
-                Code = lineInHandshake.Substring(HttpText.Length, indexOfSecondSpace - HttpText.Length);
+                if (indexOfSecondSpace > -1)
+                {
+                    Code = lineInHandshake.Substring(HttpText.Length, indexOfSecondSpace - HttpText.Length);
+                }
             }
             else
             {

@@ -168,7 +168,10 @@ namespace Hyperion.Core.WebSockets
             if (lineInHandshake.StartsWith(GetText))
             {
                 var indexOfSecondSpace = lineInHandshake.IndexOf(SpaceCharacter, GetText.Length);
-                ResourceName = lineInHandshake.Substring(GetText.Length, indexOfSecondSpace - GetText.Length);
+                if (indexOfSecondSpace > -1)
+                {
+                    ResourceName = lineInHandshake.Substring(GetText.Length, indexOfSecondSpace - GetText.Length);
+                }
             }
             else
             {
