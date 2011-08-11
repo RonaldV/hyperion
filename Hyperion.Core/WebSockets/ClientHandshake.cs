@@ -176,9 +176,9 @@ namespace Hyperion.Core.WebSockets
             else
             {
                 var seperatorIndex = lineInHandshake.IndexOf(Seperator);
-                if (seperatorIndex > -1)
+                var valueStartIndex = seperatorIndex + 2;
+                if (seperatorIndex > -1 && valueStartIndex < lineInHandshake.Length)
                 {
-                    var valueStartIndex = seperatorIndex + 2;
                     var fieldName = lineInHandshake.Substring(0, seperatorIndex);
                     var fieldValue = lineInHandshake.Substring(valueStartIndex);
                     var fieldNameLowerCase = fieldName.ToLower();
